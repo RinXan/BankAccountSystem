@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankAccountSystem.Domain
+namespace BankAccountSystem.Domain.Accounts
 {
     public abstract class BankAccount
     {
