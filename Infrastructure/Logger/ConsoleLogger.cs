@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankAccountSystem.Domain.Logger;
 
-namespace BankAccountSystem.Domain.Logger
+namespace BankAccountSystem.Infrastructure.Logger
 {
     public class ConsoleLogger : ILogger
     {

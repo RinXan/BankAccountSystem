@@ -1,11 +1,14 @@
 ﻿using BankAccountSystem.Domain.Accounts;
 using BankAccountSystem.Domain.Logger;
 using BankAccountSystem.Domain.Services;
+using BankAccountSystem.Infrastructure.Logger;
 
 BankAccount anna = new SavingsAccount(2, "Anna", 20000);
 BankAccount masha = new CreditAccount(3, "Masha", 100);
 
-ILogger logger = new ConsoleLogger();
+string filePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
+
+ILogger logger = new FileLogger(filePath);
 TransferService transferService = new TransferService(logger);
 
 anna.Deposit(90000);

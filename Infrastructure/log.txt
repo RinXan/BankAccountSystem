@@ -1,0 +1,6 @@
+[2026-01-04 00:51:19] [Info] Sending money...
+[2026-01-04 00:51:19] [Info] Anna has sent Masha - 5000$
+[2026-01-04 00:51:38] [Warn] User: 2 cannot send money to user: 2
+[2026-01-04 00:51:54] [Warn] Anna does not have enough money
+[2026-01-04 00:52:51] [Info] Sending money...
+[2026-01-04 00:52:51] [Info] Anna has sent Masha - 5000$
