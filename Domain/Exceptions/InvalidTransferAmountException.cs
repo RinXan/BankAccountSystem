@@ -6,5 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankAccountSystem.Domain.Exceptions
 {
-    public class NotEnoughMoney(string message) : DomainException(message) { }
+    public class InvalidTransferAmountException : DomainException
+    {
+    }
 }
