@@ -4,3 +4,6 @@
 [2026-01-04 00:51:54] [Warn] Anna does not have enough money
 [2026-01-04 00:52:51] [Info] Sending money...
 [2026-01-04 00:52:51] [Info] Anna has sent Masha - 5000$
+[2026-01-12 12:11:56] [Info] Anna(ID: 2) has sent Masha(ID: 3) - 5000$
+[2026-01-12 12:12:53] [Info] Masha(ID: 3) has sent Anna(ID: 2) - 50000$
+[2026-01-12 12:13:29] [Info] Masha(ID: 3) has sent Anna(ID: 2) - 50000$

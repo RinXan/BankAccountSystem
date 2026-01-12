@@ -24,7 +24,7 @@ namespace BankAccountSystem.Infrastructure.Repositories
 
             foreach(BankAccount bankAccount in _bankAccounts)
             {
-                if (bankAccount.Id == account.Id) throw new InvalidOperationException(nameof(account));
+                if (bankAccount.Id == account.Id) throw new InvalidOperationException($"User with ID: {account.Id} already exists");
             }
             
             _bankAccounts.Add(account);
@@ -35,7 +35,7 @@ namespace BankAccountSystem.Infrastructure.Repositories
             return new List<BankAccount>(_bankAccounts);
         }
 
-        public BankAccount GetById(int id)
+        public BankAccount? GetById(int id)
         {
             if (id < 1) throw new ArgumentOutOfRangeException(nameof(id));
 
