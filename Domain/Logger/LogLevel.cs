@@ -11,6 +11,7 @@ namespace BankAccountSystem.Domain.Logger
         Debug,
         Info,
         Warn,
-        Error
+        Error,
+        Fatal
     }
 }

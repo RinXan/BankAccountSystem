@@ -25,6 +25,9 @@ namespace BankAccountSystem.Infrastructure.Logger
                 case LogLevel.Error:
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
+                case LogLevel.Fatal:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
                 default:
                     Console.ForegroundColor = ConsoleColor.White;
                     break;
