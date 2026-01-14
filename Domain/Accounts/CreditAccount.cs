@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankAccountSystem.Domain.Exceptions;
 
 namespace BankAccountSystem.Domain.Accounts
 {
@@ -15,10 +16,10 @@ namespace BankAccountSystem.Domain.Accounts
             CreditLimit = creditLimit;
         }
 
-        public override bool CanWithdraw(decimal money)
+        protected override void ValidateWithdraw(decimal money)
         {
             decimal remainder = Balance - money;
-            return remainder >= -CreditLimit;
+            if (remainder < -CreditLimit) throw new NotEnoughMoneyException(Id, Balance, money);
         }
 
         public override string PrintInfo()

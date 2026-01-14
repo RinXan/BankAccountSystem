@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankAccountSystem.Domain.Exceptions;
 
 namespace BankAccountSystem.Domain.Accounts
 {
@@ -24,13 +25,14 @@ namespace BankAccountSystem.Domain.Accounts
         
         public void Deposit(decimal money)
         {
-            if (money <= 0) throw new ArgumentOutOfRangeException(nameof(money), "Deposit sum should be more than 0");
+            if (money <= 0) throw new InvalidTransferAmountException(money);
             Balance += money;
         }
         public void Withdraw(decimal money) 
         {
-            if (money <= 0) throw new ArgumentOutOfRangeException("Sum cannot be less than 1");
-            if (!CanWithdraw(money)) throw new InvalidOperationException("Your balance is lower");
+            if (money <= 0) throw new InvalidTransferAmountException(money);
+
+            ValidateWithdraw(money);
 
             Balance -= money;
         }
@@ -38,9 +40,7 @@ namespace BankAccountSystem.Domain.Accounts
         {
             return $"ID: {Id}\nNAME: {Name}\nBALANCE: {Balance}\n";
         }
-        public virtual bool CanWithdraw(decimal money) 
-        {
-            return Balance >= money;
-        }
+        
+        protected abstract void ValidateWithdraw(decimal money);
     }
 }

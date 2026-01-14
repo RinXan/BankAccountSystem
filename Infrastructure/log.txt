@@ -16,3 +16,10 @@
 [2026-01-13 23:53:22] [Error] NotEnoughMoneyException: User [2]: cannot withdraw 12000.Current balance: 6000.
 [2026-01-13 23:53:53] [Info] Masha(ID: 3) has sent Anna(ID: 2) - 100000$
 [2026-01-13 23:53:53] [Info] Anna(ID: 2) has sent Masha(ID: 3) - 86000$
+[2026-01-14 23:47:34] [Error] NotEnoughMoneyException: User [3]: cannot withdraw 100000.Current balance: 150000.
+[2026-01-14 23:49:01] [Error] NotEnoughMoneyException: User [3]: cannot withdraw 100000.Current balance: 150000.
+[2026-01-14 23:49:54] [Error] NotEnoughMoneyException: User [3]: cannot withdraw 10000.Current balance: 150000.
+[2026-01-14 23:55:58] [Info] Masha(ID: 3) has sent Anna(ID: 2) - 10000$
+[2026-01-14 23:56:23] [Info] Masha(ID: 3) has sent Anna(ID: 2) - 10000$
+[2026-01-14 23:56:48] [Info] Masha(ID: 3) has sent Anna(ID: 2) - 1000000$
+[2026-01-14 23:57:30] [Error] NotEnoughMoneyException: User [3]: cannot withdraw 2000000.Current balance: 150000.

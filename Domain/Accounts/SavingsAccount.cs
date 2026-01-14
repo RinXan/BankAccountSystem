@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankAccountSystem.Domain.Exceptions;
 
 namespace BankAccountSystem.Domain.Accounts
 {
@@ -19,10 +20,10 @@ namespace BankAccountSystem.Domain.Accounts
         {
             return base.PrintInfo() + $"Minimal savings: {MinimumBalance}\n";
         }
-        public override bool CanWithdraw(decimal money)
+        protected override void ValidateWithdraw(decimal money)
         {
             decimal reminder = Balance - money;
-            return reminder >= MinimumBalance;
+            if (reminder < MinimumBalance) throw new NotEnoughMoneyException(Id, Balance, money);
         }
     }
 }

@@ -26,7 +26,6 @@ namespace BankAccountSystem.Domain.Services
 
             if (from == null) throw new AccountNotFoundException(fromAccountId);
             if (to == null) throw new AccountNotFoundException(toAccountId);
-            if (!from.CanWithdraw(money)) throw new NotEnoughMoneyException(from.Id, from.Balance, money);
 
             from.Withdraw(money);
             to.Deposit(money);

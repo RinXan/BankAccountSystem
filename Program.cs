@@ -12,7 +12,7 @@ ILogger logger = new FileLogger(filePath);
 try
 {
     BankAccount anna = new SavingsAccount(2, "Anna", 100);
-    BankAccount masha = new CreditAccount(3, "Masha", 1000);
+    BankAccount masha = new CreditAccount(3, "Masha", 1000000);
     BankAccount olga = new SavingsAccount(4, "Olya", 1000000);
     List<BankAccount> bankAccounts = [];
 
@@ -29,8 +29,7 @@ try
     Console.WriteLine(anna.PrintInfo());
     Console.WriteLine(masha.PrintInfo());
 
-    transferService.Transfer(masha.Id, anna.Id, 100000);
-    transferService.Transfer(anna.Id, masha.Id, 86000);
+    transferService.Transfer(masha.Id, anna.Id, 2000000);
 
     Console.WriteLine(anna.PrintInfo());
     Console.WriteLine(masha.PrintInfo());
