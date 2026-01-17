@@ -27,16 +27,11 @@ namespace BankAccountSystem.Infrastructure.Repositories
                 string type = parts[0];
                 int id = Convert.ToInt32(parts[1]);
                 string name = parts[2];
-                decimal balance = Convert.ToDecimal(parts[3]);
+                decimal amount = Convert.ToDecimal(parts[3]);
 
-                BankAccount temp = type switch
-                {
-                    "Savings" => new SavingsAccount(id, name, balance),
-                    "Credit" => new CreditAccount(id, name, balance),
-                    _ => throw new Exception("Unknow account type")
-                };
+                BankAccount account = AccountFactory.Create(id, name, type, amount);
 
-                accounts.Add(temp);
+                accounts.Add(account);
             }
 
             return accounts;
