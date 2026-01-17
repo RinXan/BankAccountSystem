@@ -19,7 +19,6 @@ namespace BankAccountSystem.Domain.Services
             if (fromAccountId <= 0) throw new ArgumentOutOfRangeException(nameof(fromAccountId));
             if (toAccountId <= 0) throw new ArgumentOutOfRangeException(nameof(toAccountId));
             if (toAccountId == fromAccountId) throw new SameAccountTransferException(toAccountId);
-            if (money <= 0) throw new InvalidTransferAmountException(money);
 
             BankAccount from = _bankRepository.GetById(fromAccountId);
             BankAccount to = _bankRepository.GetById(toAccountId);
