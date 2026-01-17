@@ -36,27 +36,48 @@ namespace BankAccountSystem.Tests.Domain.Accounts
             Assert.Throws<NotEnoughMoneyException>(() => account.Withdraw(100));
         }
 
-        [Fact]
-        public void Withdraw_WhenAmountIsZero_ThrowsInvalidTransferAmountException()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-45)]
+        public void Withdraw_WhenAmountIsZeroOrNegative_ThrowsInvalidTransferAmountException(decimal amount)
         {
             // Arrange
             BankAccount account = new SavingsAccount(1, "Any", 100);
             account.Deposit(1000);
 
             // Act & Assert
-            Assert.Throws<InvalidTransferAmountException>(() => account.Withdraw(0));
+            Assert.Throws<InvalidTransferAmountException>(() => account.Withdraw(amount));
         }
 
-        [Fact]
-        public void Withdraw_WhenAmountIsNegative_ThrowsInvalidTransferAmountException()
+        [Theory]
+        [InlineData(601)]
+        [InlineData(800)]
+        [InlineData(1000)]
+        public void Withdraw_WhenCreditLimitExceeds_ThrowsNotEnoughMoneyException(decimal amount)
         {
             // Arrange
-            BankAccount account = new SavingsAccount(1, "Any", 100);
-            account.Deposit(1000);
+            BankAccount account = new CreditAccount(1, "Test", 500);
+            account.Deposit(100);
 
             // Act & Assert
-            Assert.Throws<InvalidTransferAmountException>(() => account.Withdraw(-45));
+            Assert.Throws<NotEnoughMoneyException>(() => account.Withdraw(amount));
         }
 
+        [Theory]
+        [InlineData(100)]
+        [InlineData(300)]
+        [InlineData(500)]
+        public void Withdraw_WhenWithinCreditLimit_DecreasesBalance(decimal amount)
+        {
+            // Arrange
+            BankAccount account = new CreditAccount(1, "test5", 500);
+            account.Deposit(100);
+
+            // Act
+            account.Withdraw(amount);
+
+            // Assert
+            Assert.Equal(100 - amount, account.Balance);
+        }
     }
 }

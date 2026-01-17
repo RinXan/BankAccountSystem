@@ -6,33 +6,31 @@ using BankAccountSystem.Domain.Services;
 using BankAccountSystem.Infrastructure.Logger;
 using BankAccountSystem.Infrastructure.Repositories;
 
-string filePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
-ILogger logger = new FileLogger(filePath);
+string logFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
+string dataFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\data.txt";
+ILogger logger = new FileLogger(logFilePath);
 
 try
 {
-    BankAccount anna = new SavingsAccount(2, "Anna", 100);
-    BankAccount masha = new CreditAccount(3, "Masha", 1000000);
-    BankAccount olga = new SavingsAccount(4, "Olya", 1000000);
-    List<BankAccount> bankAccounts = [];
+    IAccountLoader loader = new FileAccountLoader(dataFilePath);
+    IAccountRepository bankRepository = new InMemoryAccountRepository(new List<BankAccount>());
 
-    IAccountRepository bankRepository = new InMemoryAccountRepository(bankAccounts);
+    IEnumerable<BankAccount> accounts = loader.Load();
+
     TransferService transferService = new TransferService(bankRepository, logger);
+    
+    foreach (BankAccount account in accounts)
+    {
+        bankRepository.Add(account);
+    }
 
-    bankRepository.Add(anna);
-    bankRepository.Add(masha);
-    bankRepository.Add(olga);
+    IEnumerable<BankAccount> temp = bankRepository.GetAll();
 
-    anna.Deposit(6000);
-    masha.Deposit(150000);
+    foreach(BankAccount account in temp)
+    {
+        Console.WriteLine(account.PrintInfo());
+    }
 
-    Console.WriteLine(anna.PrintInfo());
-    Console.WriteLine(masha.PrintInfo());
-
-    transferService.Transfer(masha.Id, anna.Id, 2000000);
-
-    Console.WriteLine(anna.PrintInfo());
-    Console.WriteLine(masha.PrintInfo());
     Console.WriteLine("Operation success");
 } 
 catch (DomainException ex)
