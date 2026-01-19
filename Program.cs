@@ -51,6 +51,9 @@ catch (DomainException ex)
         case SameAccountTransferException e:
             Console.WriteLine($"Transfer to same account is not allowed");
             break;
+        case UnknownAccontTypeException e:
+            Console.WriteLine($"{e.AccountType} account type does not supported");
+            break;
         default:
             Console.WriteLine("Operation error");
             break;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankAccountSystem.Domain.Exceptions;
 
 namespace BankAccountSystem.Domain.Accounts
 {
@@ -14,7 +15,7 @@ namespace BankAccountSystem.Domain.Accounts
             {
                 "Savings" => new SavingsAccount(id, name, amount),
                 "Credit" => new CreditAccount(id, name, amount),
-                _ => throw new Exception("Unknown account type")
+                _ => throw new UnknownAccontTypeException(type)
             };
             return account;
         }

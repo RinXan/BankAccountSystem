@@ -35,7 +35,7 @@ namespace BankAccountSystem.Infrastructure.Repositories
             return new List<BankAccount>(_bankAccounts);
         }
 
-        public BankAccount? GetById(int id)
+        public BankAccount GetById(int id)
         {
             if (id < 1) throw new ArgumentOutOfRangeException(nameof(id));
 
