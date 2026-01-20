@@ -16,25 +16,16 @@ namespace BankAccountSystem.Infrastructure.Repositories
             _filePath = filePath ?? throw new InvalidOperationException();
         }
 
-        public IEnumerable<BankAccount> Load()
+        public IEnumerable<string> Load()
         {
-            List<BankAccount> accounts = new List<BankAccount>();
+            List<string> data = new List<string>();
 
             foreach (string line in File.ReadAllLines(_filePath))
             {
-                var parts = line.Split('_');
-
-                string type = parts[0];
-                int id = Convert.ToInt32(parts[1]);
-                string name = parts[2];
-                decimal amount = Convert.ToDecimal(parts[3]);
-
-                BankAccount account = AccountFactory.Create(id, name, type, amount);
-
-                accounts.Add(account);
+                data.Add(line);
             }
 
-            return accounts;
+            return data;
         }
     }
 }

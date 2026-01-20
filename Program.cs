@@ -1,9 +1,11 @@
 ﻿using BankAccountSystem.Domain.Accounts;
 using BankAccountSystem.Domain.Exceptions;
 using BankAccountSystem.Domain.Logger;
+using BankAccountSystem.Domain.Parsers;
 using BankAccountSystem.Domain.Repositories;
 using BankAccountSystem.Domain.Services;
 using BankAccountSystem.Infrastructure.Logger;
+using BankAccountSystem.Infrastructure.Parsers;
 using BankAccountSystem.Infrastructure.Repositories;
 
 string logFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
@@ -15,21 +17,13 @@ try
     IAccountLoader loader = new FileAccountLoader(dataFilePath);
     IAccountRepository bankRepository = new InMemoryAccountRepository(new List<BankAccount>());
 
-    IEnumerable<BankAccount> accounts = loader.Load();
+    IEnumerable<string> accountsInfo = loader.Load();
+
+    IAccountParser parser = new TextAccountParser();
 
     TransferService transferService = new TransferService(bankRepository, logger);
     
-    foreach (BankAccount account in accounts)
-    {
-        bankRepository.Add(account);
-    }
-
-    IEnumerable<BankAccount> temp = bankRepository.GetAll();
-
-    foreach(BankAccount account in temp)
-    {
-        Console.WriteLine(account.PrintInfo());
-    }
+    
 
     Console.WriteLine("Operation success");
 } 
