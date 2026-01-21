@@ -9,6 +9,6 @@ namespace BankAccountSystem.Domain.Repositories
 {
     public interface IAccountLoader
     {
-        IEnumerable<string> Load();
+        IEnumerable<BankAccount> Load();
     }
 }

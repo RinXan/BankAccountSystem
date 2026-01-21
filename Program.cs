@@ -10,22 +10,20 @@ using BankAccountSystem.Infrastructure.Repositories;
 
 string logFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
 string dataFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\data.txt";
+
 ILogger logger = new FileLogger(logFilePath);
 
 try
 {
-    IAccountLoader loader = new FileAccountLoader(dataFilePath);
-    IAccountRepository bankRepository = new InMemoryAccountRepository(new List<BankAccount>());
-
-    IEnumerable<string> accountsInfo = loader.Load();
-
     IAccountParser parser = new TextAccountParser();
 
-    TransferService transferService = new TransferService(bankRepository, logger);
+    IAccountLoader loader = new FileAccountLoader(dataFilePath, parser);
     
-    
+    IEnumerable<BankAccount> accounts = loader.Load();
 
-    Console.WriteLine("Operation success");
+    IAccountRepository bankRepository = new InMemoryAccountRepository(accounts.ToList());
+    
+    TransferService transferService = new TransferService(bankRepository, logger);
 } 
 catch (DomainException ex)
 {

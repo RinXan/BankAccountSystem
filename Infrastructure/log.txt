@@ -24,3 +24,5 @@
 [2026-01-14 23:56:48] [Info] Masha(ID: 3) has sent Anna(ID: 2) - 1000000$
 [2026-01-14 23:57:30] [Error] NotEnoughMoneyException: User [3]: cannot withdraw 2000000.Current balance: 150000.
 [2026-01-17 16:43:13] [Error] NotEnoughMoneyException: User [3]: cannot withdraw 2000000.Current balance: 150000.
+[2026-01-21 20:46:48] [Info] Julia(ID: 2) has sent Natalie(ID: 3) - 9999$
+[2026-01-21 20:46:48] [Info] Margo(ID: 4) has sent Maria(ID: 5) - 9999$
