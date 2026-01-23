@@ -30,3 +30,6 @@
 [2026-01-23 15:45:30] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 32.Current balance: 0.
 [2026-01-23 15:45:35] [Info] Natalie(ID: 3) has sent Julia(ID: 2) - 12$
 [2026-01-23 15:51:05] [Error] AccountNotFoundException: Account with ID 7 not found
+[2026-01-23 16:23:38] [Info] Julia(ID: 2) has sent Anna(ID: 1) - 2$
+[2026-01-23 16:37:38] [Error] AccountNotFoundException: Account with ID 6 not found
+[2026-01-23 16:38:13] [Error] AccountNotFoundException: Account with ID 6 not found

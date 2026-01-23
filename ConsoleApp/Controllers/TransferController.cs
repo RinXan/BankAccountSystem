@@ -64,5 +64,15 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                 Console.WriteLine("System error");
             }
         }
+
+        internal void ShowAccountsDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void ShowAllAccounts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -17,10 +17,7 @@ namespace BankAccountSystem.ConsoleApp.UI
 
         public void Run()
         {
-            while (true)
-            {
-                _menu.Show();
-            }
+            _menu.Show();
         }
     }
 }
