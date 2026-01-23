@@ -1,10 +1,5 @@
 ﻿using BankAccountSystem.ConsoleApp.CompositionRoot;
+using BankAccountSystem.ConsoleApp.UI;
 
-public class Program
-{
-    private static void Main(string[] args)
-    {
-        var app = AppBootstrapper.Build();
-        app.Run();
-    }
-}
+BankConsoleApp app = AppBootstrapper.Build();
+app.Run();

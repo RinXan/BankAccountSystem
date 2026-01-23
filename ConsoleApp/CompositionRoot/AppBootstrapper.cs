@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BankAccountSystem.ConsoleApp.UI;
+﻿using BankAccountSystem.ConsoleApp.UI;
 using BankAccountSystem.Domain.Logger;
 using BankAccountSystem.Infrastructure.Logger;
 using BankAccountSystem.Domain.Accounts;
@@ -11,21 +6,29 @@ using BankAccountSystem.Domain.Repositories;
 using BankAccountSystem.Infrastructure.Repositories;
 using BankAccountSystem.Domain.Services;
 using BankAccountSystem.ConsoleApp.Controllers;
+using BankAccountSystem.Domain.Parsers;
+using BankAccountSystem.Infrastructure.Parsers;
 
 namespace BankAccountSystem.ConsoleApp.CompositionRoot
 {
     public static class AppBootstrapper
     {
+        static string dataFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\data.txt";
+        static string logFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
+
         public static BankConsoleApp Build()
         {
-            ILogger logger = new FileLogger("D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt");
+            ILogger logger = new FileLogger(logFilePath);
+            IAccountParser parser = new TextAccountParser();
+            IAccountLoader loader = new FileAccountLoader(dataFilePath, parser);
 
-            var accounts = new List<BankAccount>();
-            IAccountRepository repository = new InMemoryAccountRepository(accounts);
+            IEnumerable<BankAccount> accounts = loader.Load();
 
-            var transferService = new TransferService(repository, logger);
-            var controller = new TransferController(transferService);
-            var menu = new ConsoleMenu(controller);
+            IAccountRepository bankRepository = new InMemoryAccountRepository(accounts.ToList());
+
+            TransferService transferService = new TransferService(bankRepository, logger);
+            TransferController controller = new TransferController(transferService, logger);
+            ConsoleMenu menu = new ConsoleMenu(controller);
 
             return new BankConsoleApp(menu);
         }
