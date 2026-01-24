@@ -33,3 +33,16 @@
 [2026-01-23 16:23:38] [Info] Julia(ID: 2) has sent Anna(ID: 1) - 2$
 [2026-01-23 16:37:38] [Error] AccountNotFoundException: Account with ID 6 not found
 [2026-01-23 16:38:13] [Error] AccountNotFoundException: Account with ID 6 not found
+[2026-01-24 20:38:15] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 12.Current balance: 0.
+[2026-01-24 20:38:38] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 122.Current balance: 0.
+[2026-01-24 20:38:53] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 2112.Current balance: 0.
+[2026-01-24 21:00:23] [Error] AccountNotFoundException: Account with ID 6 not found
+[2026-01-24 21:00:44] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 10.Current balance: 0.
+[2026-01-24 21:31:56] [Error] System.NullReferenceException: Object reference not set to an instance of an object.
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.ShowAccountsDetails() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 76
+[2026-01-24 21:34:02] [Warn] Account with ID 90 not found
+[2026-01-24 21:34:10] [Error] System.FormatException: The input string 'k' was not in a correct format.
+   at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Int32.Parse(String s)
+   at BankAccountSystem.ConsoleApp.UI.ConsoleInput.ReadInt(String message) in D:\practise\c#\BankAccountSystem\ConsoleApp\UI\ConsoleInput.cs:line 20
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.ShowAccountsDetails() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 71

@@ -29,22 +29,27 @@ namespace BankAccountSystem.ConsoleApp.UI
                 Console.WriteLine("0. Exit");
                 Console.Write("\nChoice: ");
 
-                int choice = Convert.ToInt32(Console.ReadLine());
-
+                string? choice = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(choice))
+                {
+                    Console.WriteLine("Invalid option. Press any key...");
+                    Console.ReadKey();
+                    continue;
+                }
                 Console.WriteLine();
 
                 switch (choice)
                 {
-                    case 1:
+                    case "1":
                         _controller.ShowAllAccounts();
                         break;
-                    case 2:
+                    case "2":
                         _controller.ShowAccountsDetails();
                         break;
-                    case 3:
+                    case "3":
                         _controller.Transfer();
                         break;
-                    case 0:
+                    case "0":
                         exit = true;
                         break;
                     default:

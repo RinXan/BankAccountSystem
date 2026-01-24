@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BankAccountSystem.Domain.Accounts;
 using BankAccountSystem.Domain.Repositories;
+using BankAccountSystem.Domain.Exceptions;
 
 namespace BankAccountSystem.Infrastructure.Repositories
 {
@@ -44,7 +45,7 @@ namespace BankAccountSystem.Infrastructure.Repositories
                 if (account.Id == id) return account;
             }
 
-            return null;
+            throw new AccountNotFoundException(id);
         }
     }
 }

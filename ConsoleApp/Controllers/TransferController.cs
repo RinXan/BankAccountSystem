@@ -50,9 +50,6 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                     case SameAccountTransferException e:
                         Console.WriteLine($"Transfer to same account is not allowed");
                         break;
-                    case UnknownAccontTypeException e:
-                        Console.WriteLine($"{e.AccountType} account type does not supported");
-                        break;
                     default:
                         Console.WriteLine("Operation error");
                         break;
@@ -63,16 +60,58 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                 _logger.Log(LogLevel.Fatal, $"{ex.GetType().Name}: {ex.ToString()}");
                 Console.WriteLine("System error");
             }
+            Console.WriteLine("\nPress any key...");
+            Console.ReadKey();
         }
 
-        internal void ShowAccountsDetails()
+        public void ShowAccountsDetails()
         {
-            throw new NotImplementedException();
+            try
+            {
+                int accountId = ConsoleInput.ReadInt("Account ID: ");
+
+                var account = _transferService.GetAccountById(accountId);
+
+                Console.WriteLine("\n*** Account details ***");
+                Console.WriteLine($"ID: {account.Id}");
+                Console.WriteLine($"Owner: {account.Name}");
+                Console.WriteLine($"Type: {account.GetType().Name}");
+                Console.WriteLine($"Balance: {account.Balance}");
+            }
+            catch (AccountNotFoundException e)
+            {
+                _logger.Log(LogLevel.Warn, e.Message);
+                Console.WriteLine($"Account with id {e.AccountId} not found");
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Error, e.ToString());
+                Console.WriteLine("Error to load account");
+            }
+            Console.WriteLine("\nPress any key...");
+            Console.ReadKey();
         }
 
-        internal void ShowAllAccounts()
+        public void ShowAllAccounts()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var accounts = _transferService.GetAllAccounts();
+
+                Console.WriteLine("*** Accounts ***");
+
+                foreach ( var account in accounts )
+                {
+                    Console.WriteLine($"ID: {account.Id} | NAME: {account.Name} | Balance: {account.Balance}");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Error, e.ToString());
+                Console.WriteLine("Error to load accounts");
+            }
+            Console.WriteLine("\nPress any key...");
+            Console.ReadKey();
         }
     }
 }

@@ -30,5 +30,15 @@ namespace BankAccountSystem.Domain.Services
             to.Deposit(money);
             _logger.Log(LogLevel.Info, $"{from.Name}(ID: {from.Id}) has sent {to.Name}(ID: {to.Id}) - {money}$");
         }
+    
+        public IReadOnlyCollection<BankAccount> GetAllAccounts()
+        {
+            return _bankRepository.GetAll();
+        }
+    
+        public BankAccount GetAccountById(int accountId)
+        {
+            return _bankRepository.GetById(accountId);
+        }
     }
 }
