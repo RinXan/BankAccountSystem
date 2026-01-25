@@ -26,6 +26,7 @@ namespace BankAccountSystem.ConsoleApp.UI
                 Console.WriteLine("1. Show all accounts");
                 Console.WriteLine("2. Show account details");
                 Console.WriteLine("3. Transfer money");
+                Console.WriteLine("4. Deposit money");
                 Console.WriteLine("0. Exit");
                 Console.Write("\nChoice: ");
 
@@ -48,6 +49,9 @@ namespace BankAccountSystem.ConsoleApp.UI
                         break;
                     case "3":
                         _controller.Transfer();
+                        break;
+                    case "4":
+                        _controller.Deposit();
                         break;
                     case "0":
                         exit = true;

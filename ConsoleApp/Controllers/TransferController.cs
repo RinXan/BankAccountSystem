@@ -113,5 +113,11 @@ namespace BankAccountSystem.ConsoleApp.Controllers
             Console.WriteLine("\nPress any key...");
             Console.ReadKey();
         }
+    
+        public void Deposit()
+        {
+            Console.WriteLine("Not implemented yet. Press any key...");
+            Console.ReadKey();
+        }
     }
 }

@@ -46,3 +46,10 @@
    at System.Int32.Parse(String s)
    at BankAccountSystem.ConsoleApp.UI.ConsoleInput.ReadInt(String message) in D:\practise\c#\BankAccountSystem\ConsoleApp\UI\ConsoleInput.cs:line 20
    at BankAccountSystem.ConsoleApp.Controllers.TransferController.ShowAccountsDetails() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 71
+[2026-01-25 07:57:37] [Warn] Account with ID 9 not found
+[2026-01-25 07:57:45] [Error] System.FormatException: The input string 'в' was not in a correct format.
+   at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Int32.Parse(String s)
+   at BankAccountSystem.ConsoleApp.UI.ConsoleInput.ReadInt(String message) in D:\practise\c#\BankAccountSystem\ConsoleApp\UI\ConsoleInput.cs:line 20
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.ShowAccountsDetails() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 71
+[2026-01-25 08:02:53] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 32.Current balance: 0.
