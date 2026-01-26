@@ -12,12 +12,12 @@ namespace BankAccountSystem.ConsoleApp.Controllers
 {
     public class TransferController
     {
-        private readonly TransferService _transferService;
+        private readonly AccountService _accountService;
         private readonly ILogger _logger;
 
-        public TransferController(TransferService transferService, ILogger logger)
+        public TransferController(AccountService accountService, ILogger logger)
         {
-            _transferService = transferService;
+            _accountService = accountService;
             _logger = logger;
         }
         public void Transfer()
@@ -28,7 +28,7 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                 int to = ConsoleInput.ReadInt("To account ID: ");
                 decimal amount = ConsoleInput.ReadDecimal("Amount: ");
 
-                _transferService.Transfer(from, to, amount);
+                _accountService.Transfer(from, to, amount);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Transfer completed");
@@ -55,7 +55,7 @@ namespace BankAccountSystem.ConsoleApp.Controllers
             {
                 int accountId = ConsoleInput.ReadInt("Account ID: ");
 
-                var account = _transferService.GetAccountById(accountId);
+                var account = _accountService.GetAccountById(accountId);
 
                 Console.WriteLine("\n*** ACCOUNT DETAILS ***");
                 Console.WriteLine($"ID: {account.Id}");
@@ -81,7 +81,7 @@ namespace BankAccountSystem.ConsoleApp.Controllers
         {
             try
             {
-                var accounts = _transferService.GetAllAccounts();
+                var accounts = _accountService.GetAllAccounts();
 
                 Console.WriteLine("*** ACCOUNTS ***");
 
@@ -108,10 +108,10 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                 int accountId = ConsoleInput.ReadInt("Enter account ID: ");
                 decimal amount = ConsoleInput.ReadDecimal("Enter amount: ");
 
-                var account = _transferService.Deposit(accountId, amount);
+                var account = _accountService.Deposit(accountId, amount);
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\nDeposit complited successfully!");
+                Console.WriteLine("\nDeposit completed successfully!");
                 Console.WriteLine($"Account ID: {account.Id}, balance: {account.Balance}$");
                 Console.ResetColor();
             }
@@ -129,6 +129,36 @@ namespace BankAccountSystem.ConsoleApp.Controllers
             Console.ReadKey();
         }
     
+        public void Withdraw()
+        {
+            try
+            {
+                Console.WriteLine("*** WITHDRAW ***");
+
+                int accountId = ConsoleInput.ReadInt("Enter account ID: ");
+                decimal amount = ConsoleInput.ReadDecimal("Enter amount: ");
+
+                var account = _accountService.Withdraw(accountId, amount);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nWithdraw completed successfully!");
+                Console.WriteLine($"Account ID: {account.Id}, balance: {account.Balance}$");
+                Console.ResetColor();
+            }
+            catch (DomainException ex)
+            {
+                _logger.Log(LogLevel.Warn, ex.Message);
+                ShowDomainException(ex);
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Fatal, e.ToString());
+                Console.WriteLine("System error");
+            }
+            Console.WriteLine("\nPress any key...");
+            Console.ReadKey();
+        }
+
         private void ShowDomainException(DomainException ex)
         {
             switch (ex)
@@ -150,5 +180,6 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                     break;
             }
         }
+
     }
 }

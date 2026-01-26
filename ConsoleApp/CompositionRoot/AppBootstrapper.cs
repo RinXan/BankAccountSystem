@@ -25,9 +25,10 @@ namespace BankAccountSystem.ConsoleApp.CompositionRoot
             IEnumerable<BankAccount> accounts = loader.Load();
 
             IAccountRepository bankRepository = new InMemoryAccountRepository(accounts.ToList());
+            //IAccountRepository bankRepositorySql = new SqlAccountRepository(Url);
 
-            TransferService transferService = new TransferService(bankRepository, logger);
-            TransferController controller = new TransferController(transferService, logger);
+            AccountService accountService = new AccountService(bankRepository, logger);
+            TransferController controller = new TransferController(accountService, logger);
             ConsoleMenu menu = new ConsoleMenu(controller);
 
             return new BankConsoleApp(menu);

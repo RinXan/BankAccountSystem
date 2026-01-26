@@ -10,7 +10,7 @@ using BankAccountSystem.Domain.Repositories;
 
 namespace BankAccountSystem.Domain.Services
 {
-    public class TransferService(IAccountRepository bankRepository, ILogger logger)
+    public class AccountService(IAccountRepository bankRepository, ILogger logger)
     {
         private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         private readonly IAccountRepository _bankRepository = bankRepository ?? throw new ArgumentNullException(nameof(bankRepository));
@@ -38,6 +38,17 @@ namespace BankAccountSystem.Domain.Services
             BankAccount account = _bankRepository.GetById(accountId);
 
             account.Deposit(amount);
+
+            return account;
+        }
+
+        public BankAccount Withdraw(int accountId, decimal amount)
+        {
+            if (amount <= 0) throw new InvalidTransferAmountException(amount);
+
+            BankAccount account = _bankRepository.GetById(accountId);
+
+            account.Withdraw(amount);
 
             return account;
         }

@@ -28,6 +28,7 @@ namespace BankAccountSystem.Domain.Accounts
             if (money <= 0) throw new InvalidTransferAmountException(money);
             Balance += money;
         }
+        
         public void Withdraw(decimal money) 
         {
             if (money <= 0) throw new InvalidTransferAmountException(money);
@@ -36,6 +37,7 @@ namespace BankAccountSystem.Domain.Accounts
 
             Balance -= money;
         }
+        
         public virtual string PrintInfo()
         {
             return $"ID: {Id}\nNAME: {Name}\nBALANCE: {Balance}\n";

@@ -58,3 +58,17 @@
 [2026-01-26 15:58:56] [Info] Natalie(ID: 3) has sent Anna(ID: 1) - 901$
 [2026-01-26 16:01:47] [Warn] Account with ID 9 not found
 [2026-01-26 16:02:30] [Info] Maria(ID: 5) has sent Natalie(ID: 3) - 192$
+[2026-01-26 17:57:36] [Warn] User [1]: cannot withdraw 10.Current balance: 0.
+[2026-01-26 17:58:06] [Warn] User [1]: cannot withdraw 98.Current balance: 1000.
+[2026-01-26 18:00:44] [Info] Anna(ID: 1) has sent Natalie(ID: 3) - 890$
+[2026-01-26 18:01:09] [Info] Julia(ID: 2) has sent Maria(ID: 5) - 18999$
+[2026-01-26 18:01:24] [Info] Anna(ID: 1) has sent Margo(ID: 4) - 20000$
+[2026-01-26 18:01:39] [Warn] Transfer amount must be greater than 0. Current value: 0
+[2026-01-26 18:02:54] [Info] Maria(ID: 5) has sent Julia(ID: 2) - 999$
+[2026-01-26 18:03:47] [Fatal] System.FormatException: The input string 'klj' was not in a correct format.
+   at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Int32.Parse(String s)
+   at BankAccountSystem.ConsoleApp.UI.ConsoleInput.ReadInt(String message) in D:\practise\c#\BankAccountSystem\ConsoleApp\UI\ConsoleInput.cs:line 20
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.Deposit() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 108
+[2026-01-26 19:41:58] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 1.Current balance: 1000.
+[2026-01-26 19:42:22] [Info] Anna(ID: 1) has sent Julia(ID: 2) - 1009$

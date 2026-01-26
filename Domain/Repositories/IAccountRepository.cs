@@ -12,5 +12,6 @@ namespace BankAccountSystem.Domain.Repositories
         BankAccount GetById(int id);
         IReadOnlyCollection<BankAccount> GetAll();
         void Add(BankAccount account);
+        void Update(BankAccount account);
     }
 }
