@@ -31,6 +31,17 @@ namespace BankAccountSystem.Domain.Services
             _logger.Log(LogLevel.Info, $"{from.Name}(ID: {from.Id}) has sent {to.Name}(ID: {to.Id}) - {money}$");
         }
     
+        public BankAccount Deposit(int accountId, decimal amount)
+        {
+            if (amount <= 0) throw new InvalidTransferAmountException(amount);
+
+            BankAccount account = _bankRepository.GetById(accountId);
+
+            account.Deposit(amount);
+
+            return account;
+        }
+
         public IReadOnlyCollection<BankAccount> GetAllAccounts()
         {
             return _bankRepository.GetAll();

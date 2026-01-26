@@ -53,3 +53,8 @@
    at BankAccountSystem.ConsoleApp.UI.ConsoleInput.ReadInt(String message) in D:\practise\c#\BankAccountSystem\ConsoleApp\UI\ConsoleInput.cs:line 20
    at BankAccountSystem.ConsoleApp.Controllers.TransferController.ShowAccountsDetails() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 71
 [2026-01-25 08:02:53] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 32.Current balance: 0.
+[2026-01-26 11:52:52] [Warn] Account with ID 8 not found
+[2026-01-26 11:52:57] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 2.Current balance: 0.
+[2026-01-26 15:58:56] [Info] Natalie(ID: 3) has sent Anna(ID: 1) - 901$
+[2026-01-26 16:01:47] [Warn] Account with ID 9 not found
+[2026-01-26 16:02:30] [Info] Maria(ID: 5) has sent Natalie(ID: 3) - 192$

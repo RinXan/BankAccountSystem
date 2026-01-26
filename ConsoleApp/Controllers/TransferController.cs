@@ -30,30 +30,15 @@ namespace BankAccountSystem.ConsoleApp.Controllers
 
                 _transferService.Transfer(from, to, amount);
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Transfer completed");
+                Console.ResetColor();
             }
             catch (DomainException ex)
             {
                 _logger.Log(LogLevel.Error, $"{ex.GetType().Name}: {ex.Message}");
 
-                switch (ex)
-                {
-                    case AccountNotFoundException e:
-                        Console.WriteLine($"Account with ID {e.AccountId} not found");
-                        break;
-                    case InvalidTransferAmountException e:
-                        Console.WriteLine($"Incorrect transfer amount: {e.Amount}");
-                        break;
-                    case NotEnoughMoneyException e:
-                        Console.WriteLine($"Account {e.AccountId}'s balance {e.Balance}. Requested money: {e.RequestedMoney}");
-                        break;
-                    case SameAccountTransferException e:
-                        Console.WriteLine($"Transfer to same account is not allowed");
-                        break;
-                    default:
-                        Console.WriteLine("Operation error");
-                        break;
-                }
+                ShowDomainException(ex);
             }
             catch (Exception ex)
             {
@@ -72,11 +57,11 @@ namespace BankAccountSystem.ConsoleApp.Controllers
 
                 var account = _transferService.GetAccountById(accountId);
 
-                Console.WriteLine("\n*** Account details ***");
+                Console.WriteLine("\n*** ACCOUNT DETAILS ***");
                 Console.WriteLine($"ID: {account.Id}");
                 Console.WriteLine($"Owner: {account.Name}");
                 Console.WriteLine($"Type: {account.GetType().Name}");
-                Console.WriteLine($"Balance: {account.Balance}");
+                Console.WriteLine($"Balance: {account.Balance}$");
             }
             catch (AccountNotFoundException e)
             {
@@ -98,11 +83,11 @@ namespace BankAccountSystem.ConsoleApp.Controllers
             {
                 var accounts = _transferService.GetAllAccounts();
 
-                Console.WriteLine("*** Accounts ***");
+                Console.WriteLine("*** ACCOUNTS ***");
 
                 foreach ( var account in accounts )
                 {
-                    Console.WriteLine($"ID: {account.Id} | NAME: {account.Name} | Balance: {account.Balance}");
+                    Console.WriteLine($"ID: {account.Id} | NAME: {account.Name} | Balance: {account.Balance}$");
                 }
             }
             catch (Exception e)
@@ -116,8 +101,54 @@ namespace BankAccountSystem.ConsoleApp.Controllers
     
         public void Deposit()
         {
-            Console.WriteLine("Not implemented yet. Press any key...");
+            try
+            {
+                Console.WriteLine("*** DEPOSIT ***");
+                
+                int accountId = ConsoleInput.ReadInt("Enter account ID: ");
+                decimal amount = ConsoleInput.ReadDecimal("Enter amount: ");
+
+                var account = _transferService.Deposit(accountId, amount);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nDeposit complited successfully!");
+                Console.WriteLine($"Account ID: {account.Id}, balance: {account.Balance}$");
+                Console.ResetColor();
+            }
+            catch (DomainException ex)
+            {
+                _logger.Log(LogLevel.Warn, ex.Message);
+                ShowDomainException(ex);
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Fatal, e.ToString());
+                Console.WriteLine("System error");
+            }
+            Console.WriteLine("\nPress any key...");
             Console.ReadKey();
+        }
+    
+        private void ShowDomainException(DomainException ex)
+        {
+            switch (ex)
+            {
+                case AccountNotFoundException e:
+                    Console.WriteLine($"Account with ID {e.AccountId} not found");
+                    break;
+                case InvalidTransferAmountException e:
+                    Console.WriteLine($"Incorrect transfer amount: {e.Amount}");
+                    break;
+                case NotEnoughMoneyException e:
+                    Console.WriteLine($"Account {e.AccountId}'s balance {e.Balance}. Requested money: {e.RequestedMoney}");
+                    break;
+                case SameAccountTransferException e:
+                    Console.WriteLine($"Transfer to same account is not allowed");
+                    break;
+                default:
+                    Console.WriteLine("Operation error");
+                    break;
+            }
         }
     }
 }
