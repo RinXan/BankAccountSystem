@@ -1,33 +1,34 @@
 ﻿using BankAccountSystem.ConsoleApp.UI;
 using BankAccountSystem.Domain.Logger;
 using BankAccountSystem.Infrastructure.Logger;
-using BankAccountSystem.Domain.Accounts;
 using BankAccountSystem.Domain.Repositories;
 using BankAccountSystem.Infrastructure.Repositories;
 using BankAccountSystem.Domain.Services;
 using BankAccountSystem.ConsoleApp.Controllers;
-using BankAccountSystem.Domain.Parsers;
-using BankAccountSystem.Infrastructure.Parsers;
+using BankAccountSystem.Infrastructure.Persistence;
 
 namespace BankAccountSystem.ConsoleApp.CompositionRoot
 {
     public static class AppBootstrapper
     {
-        static string dataFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\data.txt";
-        static string logFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
 
         public static BankConsoleApp Build()
         {
+            string logFilePath = Path.Combine(AppContext.BaseDirectory, "log.txt");
+            string dataDir = Path.Combine(AppContext.BaseDirectory, "Data");
+            
+            Directory.CreateDirectory(dataDir);
+
+            string dbPath = Path.Combine(dataDir, "bank.db");
+            string dbUrl = $"Data Source={dbPath}";
+
             ILogger logger = new FileLogger(logFilePath);
-            IAccountParser parser = new TextAccountParser();
-            IAccountLoader loader = new FileAccountLoader(dataFilePath, parser);
 
-            IEnumerable<BankAccount> accounts = loader.Load();
+            DbInitializer.Initialize(dbUrl);
 
-            IAccountRepository bankRepository = new InMemoryAccountRepository(accounts.ToList());
-            //IAccountRepository bankRepositorySql = new SqlAccountRepository(Url);
+            IAccountRepository sqlBankRepository = new SqlAccountRepository(dbUrl);
 
-            AccountService accountService = new AccountService(bankRepository, logger);
+            AccountService accountService = new AccountService(sqlBankRepository, logger);
             TransferController controller = new TransferController(accountService, logger);
             ConsoleMenu menu = new ConsoleMenu(controller);
 

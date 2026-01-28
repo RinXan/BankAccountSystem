@@ -13,5 +13,6 @@ namespace BankAccountSystem.Domain.Repositories
         IReadOnlyCollection<BankAccount> GetAll();
         void Add(BankAccount account);
         void Update(BankAccount account);
+        void Transfer(int fromId, int toId, decimal amount);
     }
 }

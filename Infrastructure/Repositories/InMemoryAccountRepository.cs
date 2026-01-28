@@ -47,7 +47,13 @@ namespace BankAccountSystem.Infrastructure.Repositories
 
             throw new AccountNotFoundException(id);
         }
-        
+
+        public void Transfer(int fromId, int toId, decimal amount)
+        {
+            Console.WriteLine("Not implemented yet. Press any key...");
+            Console.ReadKey();
+        }
+
         public void Update(BankAccount account)
         {
             Console.WriteLine("Not implemented yet. Press any key...");
