@@ -14,12 +14,8 @@ namespace BankAccountSystem.ConsoleApp.CompositionRoot
 
         public static BankConsoleApp Build()
         {
-            string logFilePath = Path.Combine(AppContext.BaseDirectory, "log.txt");
-            string dataDir = Path.Combine(AppContext.BaseDirectory, "Data");
-            
-            Directory.CreateDirectory(dataDir);
-
-            string dbPath = Path.Combine(dataDir, "bank.db");
+            string logFilePath = "D:\\practise\\c#\\BankAccountSystem\\Infrastructure\\log.txt";
+            string dbPath = "D:\\practise\\c#\\BankAccountSystem\\ConsoleApp\\Data\\bank.db";
             string dbUrl = $"Data Source={dbPath}";
 
             ILogger logger = new FileLogger(logFilePath);
@@ -27,6 +23,8 @@ namespace BankAccountSystem.ConsoleApp.CompositionRoot
             DbInitializer.Initialize(dbUrl);
 
             IAccountRepository sqlBankRepository = new SqlAccountRepository(dbUrl);
+
+            AccountSeeder.Seed(sqlBankRepository);
 
             AccountService accountService = new AccountService(sqlBankRepository, logger);
             TransferController controller = new TransferController(accountService, logger);

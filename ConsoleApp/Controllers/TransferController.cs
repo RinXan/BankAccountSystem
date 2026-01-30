@@ -56,11 +56,13 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                 int accountId = ConsoleInput.ReadInt("Account ID: ");
 
                 var account = _accountService.GetAccountById(accountId);
+                string type = account.GetType().Name;
+                string accountParametr = type == "SavingsAccount" ? "100$" : "10000$";
 
                 Console.WriteLine("\n*** ACCOUNT DETAILS ***");
                 Console.WriteLine($"ID: {account.Id}");
-                Console.WriteLine($"Owner: {account.Name}");
-                Console.WriteLine($"Type: {account.GetType().Name}");
+                Console.WriteLine($"Name: {account.Name}");
+                Console.WriteLine($"Type: {type} - {accountParametr}");
                 Console.WriteLine($"Balance: {account.Balance}$");
             }
             catch (AccountNotFoundException e)
@@ -108,11 +110,10 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                 int accountId = ConsoleInput.ReadInt("Enter account ID: ");
                 decimal amount = ConsoleInput.ReadDecimal("Enter amount: ");
 
-                var account = _accountService.Deposit(accountId, amount);
+                _accountService.Deposit(accountId, amount);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nDeposit completed successfully!");
-                Console.WriteLine($"Account ID: {account.Id}, balance: {account.Balance}$");
                 Console.ResetColor();
             }
             catch (DomainException ex)
@@ -138,11 +139,10 @@ namespace BankAccountSystem.ConsoleApp.Controllers
                 int accountId = ConsoleInput.ReadInt("Enter account ID: ");
                 decimal amount = ConsoleInput.ReadDecimal("Enter amount: ");
 
-                var account = _accountService.Withdraw(accountId, amount);
+                _accountService.Withdraw(accountId, amount);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nWithdraw completed successfully!");
-                Console.WriteLine($"Account ID: {account.Id}, balance: {account.Balance}$");
                 Console.ResetColor();
             }
             catch (DomainException ex)

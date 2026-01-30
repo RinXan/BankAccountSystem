@@ -19,9 +19,9 @@ namespace BankAccountSystem.Infrastructure.Persistence
             command.CommandText = """
                 CREATE TABLE IF NOT EXISTS Accounts (
                     Id INTEGER PRIMARY KEY,
-                    Owner TEXT NOT NULL,
-                    Balance REAL NOT NULL,
-                    Type TEXT NOT NULL
+                    Name TEXT NOT NULL,
+                    Type TEXT NOT NULL,
+                    Balance REAL NOT NULL
                 );
                 """;
 

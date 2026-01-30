@@ -13,14 +13,14 @@ namespace BankAccountSystem.Domain.Accounts
         public string Name { get; private set; }
         public decimal Balance { get; protected set; }
 
-        public BankAccount(int id, string name) 
+        protected BankAccount(int id, string name, decimal balance) 
         {
             if (id < 1) throw new ArgumentOutOfRangeException(nameof(id), "id is not correct");
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name), "name is not correct");
             
             Id = id;
             Name = name;
-            Balance = 0;
+            Balance = balance;
         }
         
         public void Deposit(decimal money)

@@ -10,10 +10,9 @@ namespace BankAccountSystem.Domain.Accounts
     public class CreditAccount : BankAccount
     {
         public decimal CreditLimit { get; private set; }
-        public CreditAccount(int id, string name, decimal creditLimit) : base(id, name)
+        public CreditAccount(int id, string name, decimal balance) : base(id, name, balance)
         {
-            if (creditLimit < 0) throw new ArgumentException("Credit limit is less than 0");
-            CreditLimit = creditLimit;
+            CreditLimit = 10000;
         }
 
         protected override void ValidateWithdraw(decimal money)

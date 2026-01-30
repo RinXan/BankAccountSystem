@@ -31,6 +31,12 @@ namespace BankAccountSystem.Infrastructure.Repositories
             _bankAccounts.Add(account);
         }
 
+        public void Deposit(int accountId, decimal amount)
+        {
+            Console.WriteLine("Not implemented yet. Press any key...");
+            Console.ReadKey();
+        }
+
         public IReadOnlyCollection<BankAccount> GetAll()
         {
             return new List<BankAccount>(_bankAccounts);
@@ -55,6 +61,12 @@ namespace BankAccountSystem.Infrastructure.Repositories
         }
 
         public void Update(BankAccount account)
+        {
+            Console.WriteLine("Not implemented yet. Press any key...");
+            Console.ReadKey();
+        }
+
+        public void Withdraw(int accountId, decimal amount)
         {
             Console.WriteLine("Not implemented yet. Press any key...");
             Console.ReadKey();

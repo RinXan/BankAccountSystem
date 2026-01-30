@@ -14,5 +14,7 @@ namespace BankAccountSystem.Domain.Repositories
         void Add(BankAccount account);
         void Update(BankAccount account);
         void Transfer(int fromId, int toId, decimal amount);
+        void Deposit(int accountId, decimal amount);
+        void Withdraw(int accountId, decimal amount);
     }
 }

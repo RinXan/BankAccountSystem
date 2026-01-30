@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using BankAccountSystem.Domain.Accounts;
-using BankAccountSystem.Domain.Repositories;
+using BankAccountSystem.Domain.Dtos;
 using BankAccountSystem.Domain.Exceptions;
+using BankAccountSystem.Domain.Repositories;
 using Microsoft.Data.Sqlite;
 
 namespace BankAccountSystem.Infrastructure.Repositories
@@ -25,12 +27,12 @@ namespace BankAccountSystem.Infrastructure.Repositories
 
             var command = connection.CreateCommand();
             command.CommandText = """
-                INSERT INTO Accounts (Id, Owner, Balance, Type) 
-                VALUES ($id, $owner, $balance, $type)
+                INSERT INTO Accounts (Id, Name, Balance, Type) 
+                VALUES ($id, $name, $balance, $type)
                 """;
 
             command.Parameters.AddWithValue("$id", account.Id);
-            command.Parameters.AddWithValue("$owner", account.Name);
+            command.Parameters.AddWithValue("$name", account.Name);
             command.Parameters.AddWithValue("$balance", account.Balance);
             command.Parameters.AddWithValue("$type", account.GetType().Name);
 
@@ -45,7 +47,7 @@ namespace BankAccountSystem.Infrastructure.Repositories
             connection.Open();
 
             var command = connection.CreateCommand();
-            command.CommandText = "SELECT Id, Owner, Balance, Type FROM Accounts";
+            command.CommandText = "SELECT Id, Name, Balance, Type FROM Accounts";
 
             using var reader = command.ExecuteReader();
             while (reader.Read())
@@ -63,7 +65,7 @@ namespace BankAccountSystem.Infrastructure.Repositories
 
             var command = connection.CreateCommand();
             command.CommandText = """
-                SELECT Id, Owner, Balance, Type
+                SELECT Id, Name, Balance, Type
                 FROM Accounts 
                 WHERE Id = $id
                 """;
@@ -94,24 +96,128 @@ namespace BankAccountSystem.Infrastructure.Repositories
             command.ExecuteNonQuery();
         }
 
+        public void Transfer(int fromId, int toId, decimal amount)
+        {
+            using var connection = new SqliteConnection(DbUrl);
+            connection.Open();
+
+            using var transaction = connection.BeginTransaction();
+
+            try
+            {
+                var from = LoadAccount(connection, transaction, fromId);
+                var to = LoadAccount(connection, transaction, toId);
+
+                from.Withdraw(amount);
+                to.Deposit(amount);
+
+                UpdateAccount(connection, transaction, from);
+                UpdateAccount(connection, transaction, to);
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback(); ;
+                throw;
+            }
+        }
+
+        public void Deposit(int accountId, decimal amount)
+        {
+            using var connection = new SqliteConnection(DbUrl);
+            connection.Open();
+
+            using var transaction = connection.BeginTransaction();
+
+            try
+            {
+                var account = LoadAccount(connection, transaction, accountId);
+
+                account.Deposit(amount);
+
+                UpdateAccount(connection, transaction, account);
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
+
+        public void Withdraw(int accountId, decimal amount)
+        {
+            using var connection = new SqliteConnection(DbUrl);
+            connection.Open();
+
+            using var transaction = connection.BeginTransaction();
+
+            try
+            {
+                var account = LoadAccount(connection, transaction, accountId);
+
+                account.Withdraw(amount);
+
+                UpdateAccount(connection, transaction, account);
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
+        
+        // Helpers *********************
         private static BankAccount CreateAccount(SqliteDataReader reader) 
         {
             int id = reader.GetInt32(0);
-            string owner = reader.GetString(1);
+            string name = reader.GetString(1);
             decimal balance = reader.GetDecimal(2);
             string type = reader.GetString(3);
 
             return type switch
             {
-                "Savings" => new SavingsAccount(id, owner, balance),
-                "Credit" => new CreditAccount(id, owner, balance),
+                "SavingsAccount" => new SavingsAccount(id, name, balance),
+                "CreditAccount" => new CreditAccount(id, name, balance),
                 _ => throw new UnknownAccontTypeException(type)
             };
         }
-
-        public void Transfer(int fromId, int toId, decimal amount)
+        
+        private BankAccount LoadAccount(SqliteConnection connection, SqliteTransaction transaction, int id)
         {
-            throw new NotImplementedException();
+            using var cmd = connection.CreateCommand();
+            cmd.Transaction = transaction;
+            cmd.CommandText = @"SELECT Id, Name, Type, Balance
+                                FROM Accounts
+                                WHERE Id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            using var reader = cmd.ExecuteReader();
+
+            if (!reader.Read()) throw new AccountNotFoundException(id);
+
+            return AccountFactory.Create(new AccountDto(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetDecimal(3)));
+
         }
+    
+        private void UpdateAccount(SqliteConnection connection, SqliteTransaction transaction, BankAccount account)
+        {
+            using var cmd = connection.CreateCommand();
+            cmd.Transaction = transaction;
+            cmd.CommandText = 
+                @"UPDATE Accounts
+                  SET Balance = @balance
+                  WHERE Id = @id";
+
+            cmd.Parameters.AddWithValue("@balance", account.Balance);
+            cmd.Parameters.AddWithValue("@id", account.Id);
+
+            cmd.ExecuteNonQuery();
+        }
+
     }
 }

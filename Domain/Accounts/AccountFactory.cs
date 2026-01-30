@@ -14,8 +14,8 @@ namespace BankAccountSystem.Domain.Accounts
         {
             BankAccount account = accInfo.Type switch
             {
-                "Savings" => new SavingsAccount(accInfo.Id, accInfo.Name, accInfo.Balance),
-                "Credit" => new CreditAccount(accInfo.Id, accInfo.Name, accInfo.Balance),
+                "SavingsAccount" => new SavingsAccount(accInfo.Id, accInfo.Name, accInfo.Balance),
+                "CreditAccount" => new CreditAccount(accInfo.Id, accInfo.Name, accInfo.Balance),
                 _ => throw new UnknownAccontTypeException(accInfo.Type)
             };
             return account;

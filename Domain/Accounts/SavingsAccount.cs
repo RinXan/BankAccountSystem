@@ -10,10 +10,9 @@ namespace BankAccountSystem.Domain.Accounts
     public class SavingsAccount : BankAccount
     {
         public decimal MinimumBalance { get; private set; }
-        public SavingsAccount(int id, string name, decimal minimumBalance) : base(id, name)
+        public SavingsAccount(int id, string name, decimal balance) : base(id, name, balance)
         {
-            if (minimumBalance < 0) throw new ArgumentException("Minimal saving cannot be less than 0", nameof(minimumBalance));
-            MinimumBalance = minimumBalance;
+            MinimumBalance = 100;
         }
 
         public override string PrintInfo()

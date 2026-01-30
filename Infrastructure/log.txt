@@ -72,3 +72,74 @@
    at BankAccountSystem.ConsoleApp.Controllers.TransferController.Deposit() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 108
 [2026-01-26 19:41:58] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 1.Current balance: 1000.
 [2026-01-26 19:42:22] [Info] Anna(ID: 1) has sent Julia(ID: 2) - 1009$
+[2026-01-30 14:44:07] [Warn] User [1]: cannot withdraw 23.Current balance: 0.
+[2026-01-30 14:44:33] [Fatal] SqliteException: Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such column: Name'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.LoadAccount(SqliteConnection connection, SqliteTransaction transaction, Int32 id) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 150
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.Transfer(Int32 fromId, Int32 toId, Decimal amount) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 122
+   at BankAccountSystem.Domain.Services.AccountService.Transfer(Int32 fromAccountId, Int32 toAccountId, Decimal money) in D:\practise\c#\BankAccountSystem\Domain\Services\AccountService.cs:line 19
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.Transfer() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 31
+[2026-01-30 14:47:24] [Warn] Account with ID 4 not found
+[2026-01-30 14:47:29] [Error] UnknownAccontTypeException: Unknown account type: CreditAccount
+[2026-01-30 15:00:03] [Error] UnknownAccontTypeException: Unknown account type: CreditAccount
+[2026-01-30 15:00:12] [Error] UnknownAccontTypeException: Unknown account type: SavingsAccount
+[2026-01-30 15:04:49] [Error] NotEnoughMoneyException: User [1]: cannot withdraw 33.Current balance: 0.
+[2026-01-30 15:06:13] [Error] AccountNotFoundException: Account with ID 22 not found
+[2026-01-30 15:06:19] [Error] InvalidTransferAmountException: Transfer amount must be greater than 0. Current value: -12
+[2026-01-30 15:06:33] [Error] AccountNotFoundException: Account with ID 231 not found
+[2026-01-30 15:06:41] [Error] NotEnoughMoneyException: User [2]: cannot withdraw 12222.Current balance: 0.
+[2026-01-30 15:32:51] [Info] Deposit 100 to 1
+[2026-01-30 15:40:06] [Info] Deposit 10 to 3
+[2026-01-30 16:40:04] [Info] Deposit 1000 to 2
+[2026-01-30 16:40:32] [Fatal] Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Accounts'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.LoadAccount(SqliteConnection connection, SqliteTransaction transaction, Int32 id) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 199
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.Withdraw(Int32 accountId, Decimal amount) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 159
+   at BankAccountSystem.Domain.Services.AccountService.Withdraw(Int32 accountId, Decimal amount) in D:\practise\c#\BankAccountSystem\Domain\Services\AccountService.cs:line 31
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.Withdraw() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 142
+[2026-01-30 16:41:05] [Fatal] Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Accounts'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.LoadAccount(SqliteConnection connection, SqliteTransaction transaction, Int32 id) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 199
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.Withdraw(Int32 accountId, Decimal amount) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 159
+   at BankAccountSystem.Domain.Services.AccountService.Withdraw(Int32 accountId, Decimal amount) in D:\practise\c#\BankAccountSystem\Domain\Services\AccountService.cs:line 31
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.Withdraw() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 142
+[2026-01-30 16:41:26] [Info] Transfer 10 from 1 to 2
+[2026-01-30 16:41:56] [Info] Deposit 90 to 1
+[2026-01-30 16:42:09] [Info] Deposit 990 to 3
+[2026-01-30 16:42:38] [Info] Transfer 1002 from 3 to 2
+[2026-01-30 16:42:59] [Info] Deposit 2 to 3
+[2026-01-30 16:43:14] [Fatal] Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Accounts'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.LoadAccount(SqliteConnection connection, SqliteTransaction transaction, Int32 id) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 199
+   at BankAccountSystem.Infrastructure.Repositories.SqlAccountRepository.Withdraw(Int32 accountId, Decimal amount) in D:\practise\c#\BankAccountSystem\Infrastructure\Repositories\SqlAccountRepository.cs:line 159
+   at BankAccountSystem.Domain.Services.AccountService.Withdraw(Int32 accountId, Decimal amount) in D:\practise\c#\BankAccountSystem\Domain\Services\AccountService.cs:line 31
+   at BankAccountSystem.ConsoleApp.Controllers.TransferController.Withdraw() in D:\practise\c#\BankAccountSystem\ConsoleApp\Controllers\TransferController.cs:line 142
+[2026-01-30 16:45:45] [Info] Deposit 90000 to 3
+[2026-01-30 16:46:10] [Info] Withdraw 100000 from 3
+[2026-01-30 16:46:26] [Warn] User [3]: cannot withdraw 1.Current balance: -10000,0.
+[2026-01-30 16:46:49] [Error] NotEnoughMoneyException: User [3]: cannot withdraw 1.Current balance: -10000,0.
+[2026-01-30 16:46:57] [Info] Transfer 12 from 1 to 3
+[2026-01-30 16:47:12] [Info] Deposit 20000 to 3
+[2026-01-30 16:47:45] [Warn] Transfer amount must be greater than 0. Current value: -21
+[2026-01-30 16:47:52] [Error] InvalidTransferAmountException: Transfer amount must be greater than 0. Current value: -12
+[2026-01-30 16:47:59] [Warn] Transfer amount must be greater than 0. Current value: -21
