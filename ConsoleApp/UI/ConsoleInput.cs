@@ -19,5 +19,11 @@ namespace BankAccountSystem.ConsoleApp.UI
             Console.Write(message);
             return int.Parse(Console.ReadLine());
         }
+
+        public static string ReadString(string message)
+        {
+            Console.Write(message);
+            return Console.ReadLine();
+        }
     }
 }

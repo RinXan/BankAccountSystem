@@ -14,6 +14,32 @@ namespace BankAccountSystem.Domain.Services
     {
         private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         private readonly IAccountRepository _bankRepository = bankRepository ?? throw new ArgumentNullException(nameof(bankRepository));
+        
+        public void CreateSavingAccount(int id, string name, decimal balance)
+        {
+            var account = new SavingsAccount(id, name, balance);
+            
+            _bankRepository.Add(account);
+
+            _logger.Log(LogLevel.Info, $"Savings account {account.Id} created");
+        }
+      
+        public void CreateCreditAccount(int id, string name, decimal balance)
+        {
+            var account = new CreditAccount(id, name, balance);
+            
+            _bankRepository.Add(account);
+
+            _logger.Log(LogLevel.Info, $"Credit account {account.Id} created");
+        }
+        
+        public void DeleteAccount(int accountId)
+        {
+            _bankRepository.Delete(accountId);
+
+            _logger.Log(LogLevel.Info, $"Account {accountId} deleted");
+        }
+
         public void Transfer(int fromAccountId, int toAccountId, decimal money)
         {
             _bankRepository.Transfer(fromAccountId, toAccountId, money);

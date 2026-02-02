@@ -159,6 +159,51 @@ namespace BankAccountSystem.ConsoleApp.Controllers
             Console.ReadKey();
         }
 
+        public void CreateAccount()
+        {
+            int id = ConsoleInput.ReadInt("Enter account id: ");
+            string name = ConsoleInput.ReadString("Enter user name : ");
+            decimal balance = ConsoleInput.ReadDecimal("Enter account balance: ");
+
+            Console.WriteLine("\n1. Credit account");
+            Console.WriteLine("2. Savings account");
+
+            int type = ConsoleInput.ReadInt("\nChoose account type: ");
+            
+            if (type == 1)
+            {
+                _accountService.CreateCreditAccount(id, name, balance);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nAccount created successfully!");
+                Console.ResetColor();
+            }
+            else if (type == 2)
+            {
+                _accountService.CreateSavingAccount(id, name, balance);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nAccount created successfully!");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.WriteLine("Unknown account type");
+            }
+
+            Console.WriteLine("\nPress any key...");
+            Console.ReadKey();
+        }
+
+        public void DeleteAccount()
+        {
+            int accountId = ConsoleInput.ReadInt("Enter account id: ");
+
+            _accountService.DeleteAccount(accountId);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nAccount deleted successfully!");
+            Console.ResetColor();
+            Console.WriteLine("\nPress any key...");
+            Console.ReadKey();
+        }
         private void ShowDomainException(DomainException ex)
         {
             switch (ex)

@@ -143,3 +143,19 @@
 [2026-01-30 16:47:45] [Warn] Transfer amount must be greater than 0. Current value: -21
 [2026-01-30 16:47:52] [Error] InvalidTransferAmountException: Transfer amount must be greater than 0. Current value: -12
 [2026-01-30 16:47:59] [Warn] Transfer amount must be greater than 0. Current value: -21
+[2026-01-30 17:21:03] [Error] NotEnoughMoneyException: User [2]: cannot withdraw 2200.Current balance: 2012,0.
+[2026-01-30 17:21:18] [Warn] User [2]: cannot withdraw 2000.Current balance: 2012,0.
+[2026-01-30 17:21:30] [Info] Withdraw 1900 from 2
+[2026-02-02 15:32:11] [Info] Transfer 1000 from 1 to 2
+[2026-02-02 15:32:23] [Info] Transfer 1900 from 3 to 1
+[2026-02-02 15:32:33] [Info] Deposit 10000 to 2
+[2026-02-02 16:05:54] [Info] Credit account 4 created
+[2026-02-02 16:06:18] [Info] Withdraw 1222 from 4
+[2026-02-02 16:07:14] [Info] Account 4 deleted
+[2026-02-02 16:09:57] [Info] Savings account 5 created
+[2026-02-02 16:10:11] [Info] Account 5 deleted
+[2026-02-02 16:10:55] [Info] Credit account 4 created
+[2026-02-02 16:11:07] [Info] Deposit 1000 to 4
+[2026-02-02 16:11:22] [Info] Account 1 deleted
+[2026-02-02 16:12:12] [Info] Credit account 1 created
+[2026-02-02 16:12:20] [Info] Account 3 deleted

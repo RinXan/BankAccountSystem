@@ -38,6 +38,21 @@ namespace BankAccountSystem.Infrastructure.Repositories
 
             command.ExecuteNonQuery();
         }
+       
+        public void Delete(int accountId)
+        {
+            using var connection = new SqliteConnection(DbUrl);
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM Accounts WHERE Id = @id";
+
+            command.Parameters.AddWithValue("@id", accountId);
+
+            int affected = command.ExecuteNonQuery();
+
+            if (affected == 0) throw new AccountNotFoundException(accountId);
+        }
 
         public IReadOnlyCollection<BankAccount> GetAll()
         {

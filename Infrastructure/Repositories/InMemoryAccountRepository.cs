@@ -31,6 +31,12 @@ namespace BankAccountSystem.Infrastructure.Repositories
             _bankAccounts.Add(account);
         }
 
+        public void Delete(int accountId)
+        {
+            Console.WriteLine("Not implemented yet. Press any key...");
+            Console.ReadKey();
+        }
+
         public void Deposit(int accountId, decimal amount)
         {
             Console.WriteLine("Not implemented yet. Press any key...");
