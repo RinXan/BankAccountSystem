@@ -159,3 +159,5 @@
 [2026-02-02 16:11:22] [Info] Account 1 deleted
 [2026-02-02 16:12:12] [Info] Credit account 1 created
 [2026-02-02 16:12:20] [Info] Account 3 deleted
+[2026-02-02 21:59:07] [Info] Savings account 3 created
+[2026-02-02 21:59:26] [Info] Withdraw 5000 from 3
