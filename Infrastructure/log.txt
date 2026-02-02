@@ -161,3 +161,7 @@
 [2026-02-02 16:12:20] [Info] Account 3 deleted
 [2026-02-02 21:59:07] [Info] Savings account 3 created
 [2026-02-02 21:59:26] [Info] Withdraw 5000 from 3
+[2026-02-02 22:45:25] [Info] Transfer 200 from 1 to 2
+[2026-02-02 22:46:40] [Warn] User [1]: cannot withdraw 100000.Current balance: 19800,0.
+[2026-02-02 22:47:05] [Warn] Transfer amount must be greater than 0. Current value: -10
+[2026-02-02 22:49:21] [Warn] User [3]: cannot withdraw 200000.Current balance: 35000,0.
